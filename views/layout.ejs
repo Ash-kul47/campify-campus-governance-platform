@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= typeof title !== "undefined" ? title : "Campify" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body class="<%= user && user.role === 'student' ? 'student-theme' : 'admin-theme' %>">
+
+<div class="d-flex">
+
+  <!-- Sidebar -->
+  <div class="sidebar p-3 <%= user && user.role === 'student' ? 'student-sidebar' : 'admin-sidebar' %>">
+
+    <h4 class="mb-4 text-center fw-bold text-white">
+  Campify
+</h4>
+
+    <ul class="nav flex-column">
+
+      <% if (user && user.role === "admin") { %>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" href="/admin/dashboard">Dashboard</a>
+        </li>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" href="/admin/tickets/resolved">Resolved Tickets</a>
+        </li>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" href="/admin/complaints/resolved">Resolved Complaints</a>
+        </li>
+
+      <% } %>
+
+
+      <% if (user && user.role === "student") { %>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" href="/student/dashboard">Dashboard</a>
+        </li>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" href="/student/complaint/new">Raise Complaint</a>
+        </li>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link text-white" href="/student/ticket/new">Raise Ticket</a>
+        </li>
+
+      <% } %>
+
+      <% if (user) { %>
+        <li class="nav-item mt-4">
+          <a class="nav-link text-danger" href="/logout">Logout</a>
+        </li>
+      <% } %>
+
+    </ul>
+
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content flex-grow-1">
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-light shadow-sm px-4">
+      <span class="navbar-brand mb-0 h5 fw-semibold">
+        <%= typeof title !== "undefined" ? title : "Campify" %>
+      </span>
+    </nav>
+
+    <!-- Page Body -->
+    <div class="p-4 min-vh-100 content-wrapper">
+      <%- body %>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints Feed</title>
+</head>
+<body>
+  
+    <h2>Admin Dashboard</h2>
+    <hr>
+<h2>📊 Dashboard Overview</h2>
+
+<div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
+
+  <div style="border:1px solid #ccc; padding:15px; width:200px;">
+    <h3>Total Tickets</h3>
+    <p style="font-size:22px;"><%= totalTickets %></p>
+  </div>
+
+  <div style="border:1px solid #ccc; padding:15px; width:200px;">
+    <h3>Active Tickets</h3>
+    <p style="font-size:22px;"><%= activeTickets %></p>
+  </div>
+
+  <div style="border:1px solid #ccc; padding:15px; width:200px;">
+    <h3>Overdue Tickets</h3>
+    <p style="font-size:22px; color:red;"><%= overdueTickets %></p>
+  </div>
+
+  <div style="border:1px solid #ccc; padding:15px; width:200px;">
+    <h3>Active Complaints</h3>
+    <p style="font-size:22px;"><%= activeNormalComplaints %></p>
+  </div>
+
+</div>
+
+<hr>
+
+<h3>📈 Performance Snapshot</h3>
+
+<div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
+
+  <div style="border:1px solid #ddd; padding:15px; width:200px;">
+    Avg Resolution<br>
+    <strong><%= avgResolution ? Number(avgResolution).toFixed(2) : 0 %> hrs</strong>
+  </div>
+
+  <div style="border:1px solid #ddd; padding:15px; width:200px;">
+    SLA Compliance<br>
+    <strong><%= slaCompliance ? Number(slaCompliance).toFixed(1) : 0 %> %</strong>
+  </div>
+
+  <div style="border:1px solid #ddd; padding:15px; width:200px;">
+    Overdue Rate<br>
+    <strong><%= overdueRate ? Number(overdueRate).toFixed(1) : 0 %> %</strong>
+  </div>
+
+</div>
+
+<hr>
+<hr>
+
+
+<hr>
+<h4 class="mb-4">🎫 Active Tickets</h4>
+
+
+<% if (activeTicketsList.length === 0) { %>
+  <div class="alert alert-secondary">No active tickets.</div>
+<% } else { %>
+
+  <% activeTicketsList.forEach((t, index) => { %>
+
+
+    <div class="card mb-3 shadow-sm ticket-card">
+
+      <div class="row g-0 align-items-center">
+
+        <!-- Priority Strip -->
+        <div class="col-auto">
+          <div class="ticket-strip 
+            <%= new Date(t.ticket_deadline) < new Date() && t.status !== 'Resolved' 
+                ? 'bg-danger' 
+                : 'bg-warning' %>">
+          </div>
+        </div>
+
+        <!-- Main Ticket Info -->
+        <div class="col">
+          <div class="card-body">
+
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center">
+
+              <div>
+                <div class="d-flex align-items-center mb-2">
+
+  <div style="
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      background:#2563eb;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:13px;
+      font-weight:600;
+      margin-right:8px;
+  ">
+    <%= t.public_id.charAt(0).toUpperCase() %>
+  </div>
+
+  <small class="text-muted">
+    u/<%= t.public_id %>
+  </small>
+
+</div>
+
+<h5 class="card-title mb-1"><%= t.title %></h5>
+                <small class="text-muted">
+                  Deadline: <%= new Date(t.ticket_deadline).toLocaleString() %>
+                </small>
+              </div>
+              <% 
+  const now = new Date();
+  const deadline = new Date(t.ticket_deadline);
+  const diff = deadline - now;
+  const hoursLeft = Math.floor(diff / (1000 * 60 * 60));
+%>
+
+<% if (t.status !== "Resolved") { %>
+  <div class="mt-2">
+    <% if (hoursLeft > 0) { %>
+      <small class="text-success">
+        ⏳ <%= hoursLeft %> hours remaining
+      </small>
+    <% } else { %>
+      <small class="text-danger">
+        🚨 Overdue by <%= Math.abs(hoursLeft) %> hours
+      </small>
+    <% } %>
+  </div>
+<% } %>
+
+<%
+let priorityLabel = "Low";
+let priorityClass = "bg-success";
+
+if (t.priority_score >= 80) {
+  priorityLabel = "Immediate";
+  priorityClass = "bg-danger";
+} else if (t.priority_score >= 60) {
+  priorityLabel = "High";
+  priorityClass = "bg-warning text-dark";
+} else if (t.priority_score >= 30) {
+  priorityLabel = "Medium";
+  priorityClass = "bg-info text-dark";
+}
+%>
+<span class="badge <%= priorityClass %> ms-2">
+  <%= priorityLabel %>
+</span>
+
+              <div>
+                <% if (t.status === "Resolved") { %>
+                  <span class="badge bg-success">Resolved</span>
+                <% } else if (new Date(t.ticket_deadline) < new Date()) { %>
+                  <span class="badge bg-danger">Overdue</span>
+                <% } else { %>
+                  <span class="badge bg-warning text-dark"><%= t.status %></span>
+                <% } %>
+              </div>
+
+            </div>
+            
+
+            <!-- Expand Button -->
+            <button class="btn btn-sm btn-outline-dark mt-3"
+  data-bs-toggle="collapse"
+  data-bs-target="#ticketDetails<%= index %>"
+  onclick="this.innerText = this.innerText === 'View Details' ? 'Hide Details' : 'View Details'">
+  View Details
+</button>
+
+            <!-- COLLAPSIBLE SECTION START -->
+            <div class="collapse mt-3" id="ticketDetails<%= index %>">
+
+              <hr>
+
+              <p><strong>Description:</strong></p>
+              <p><%= t.description %></p>
+
+              <p><strong>Category:</strong> <%= t.category %></p>
+              <p><strong>Location:</strong> <%= t.location %></p>
+              <% if (t.proofs && t.proofs.length > 0) { %>
+  <hr>
+  <p><strong>Attached Proof:</strong></p>
+
+  <% t.proofs.forEach(proof => { %>
+
+    <% if (proof.file_type.startsWith("image")) { %>
+      <img src="/<%= proof.file_path %>" 
+           class="img-fluid mb-2" 
+           style="max-width:300px; border-radius:8px;">
+    <% } else if (proof.file_type.startsWith("video")) { %>
+      <video controls width="300" class="mb-2">
+        <source src="/<%= proof.file_path %>" type="<%= proof.file_type %>">
+      </video>
+    <% } else if (proof.file_type.startsWith("audio")) { %>
+      <audio controls class="mb-2">
+        <source src="/<%= proof.file_path %>" type="<%= proof.file_type %>">
+      </audio>
+    <% } %>
+
+  <% }) %>
+<% } %>
+
+              <!-- Connect With Student -->
+              <button class="btn btn-sm btn-outline-primary mt-3"
+                data-bs-toggle="collapse"
+                data-bs-target="#studentInfo<%= index %>">
+                Connect With Student
+              </button>
+
+              <!-- Student Info Hidden -->
+              <div class="collapse mt-3" id="studentInfo<%= index %>">
+                <div class="card card-body bg-light">
+                  <p><strong>Name:</strong> <%= t.student_name %></p>
+                  <p><strong>Class:</strong> <%= t.student_class %></p>
+                  <p><strong>Email:</strong> <%= t.contact_email %></p>
+                  <p><strong>Phone:</strong> <%= t.contact_number %></p>
+                </div>
+              </div>
+
+              <hr>
+
+              <!-- Status Update -->
+              <form action="/admin/complaints/<%= t.id %>/status" method="POST">
+                <select name="status" class="form-select mb-2">
+                  <option value="Pending" <%= t.status === "Pending" ? "selected" : "" %>>Pending</option>
+                  <option value="In Progress" <%= t.status === "In Progress" ? "selected" : "" %>>In Progress</option>
+                  <option value="Resolved" <%= t.status === "Resolved" ? "selected" : "" %>>Resolved</option>
+                </select>
+                <button class="btn btn-dark btn-sm">Update Status</button>
+              </form>
+
+            </div>
+            <!-- COLLAPSIBLE SECTION END -->
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  <% }) %>
+
+<% } %>
+
+<a href="/admin/tickets/resolved">View Resolved Tickets</a>
+
+
+
+
+
+<hr>
+<h4 class="mb-4">📢 Normal Complaints</h4>
+
+<% if (complaints.length === 0) { %>
+  <div class="alert alert-secondary">No complaints.</div>
+<% } else { %>
+
+  <% complaints.forEach((c, index) => { %>
+
+    <div class="card mb-3 shadow-sm complaint-card">
+
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div>
+            <div class="d-flex align-items-center mb-2">
+
+  <div style="
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      background:#2563eb;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:13px;
+      font-weight:600;
+      margin-right:8px;
+  ">
+    <%= c.public_id.charAt(0).toUpperCase() %>
+  </div>
+
+  <small class="text-muted">
+    u/<%= c.public_id %>
+  </small>
+
+</div>
+
+<h5 class="mb-1"><%= c.title %></h5>
+            <small class="text-muted">
+              Upvotes: <%= c.upvotes %>
+            </small>
+          </div>
+
+          <div>
+            <% if (c.status === "Resolved") { %>
+              <span class="badge bg-success">Resolved</span>
+            <% } else if (c.status === "In Progress") { %>
+              <span class="badge bg-warning text-dark">In Progress</span>
+            <% } else { %>
+              <span class="badge bg-secondary">Pending</span>
+            <% } %>
+          </div>
+
+        </div>
+
+        <!-- Expand Button -->
+        <button class="btn btn-sm btn-outline-dark mt-3"
+          data-bs-toggle="collapse"
+          data-bs-target="#complaintDetails<%= index %>">
+          View Details
+        </button>
+
+        <!-- Collapsible Section -->
+        <div class="collapse mt-3" id="complaintDetails<%= index %>">
+
+          <hr>
+
+          <p><strong>Description:</strong></p>
+          <p><%= c.description %></p>
+
+          <p><strong>Category:</strong> <%= c.category %></p>
+          <p><strong>Location:</strong> <%= c.location %></p>
+          <p><strong>Created At:</strong> <%= new Date(c.created_at).toLocaleString() %></p>
+          <% if (c.proofs && c.proofs.length > 0) { %>
+  <hr>
+  <p><strong>Attached Proof:</strong></p>
+
+  <% c.proofs.forEach(proof => { %>
+
+    <% if (proof.file_type.startsWith("image")) { %>
+      <img src="/<%= proof.file_path %>" 
+           class="img-fluid mb-2" 
+           style="max-width:300px; border-radius:8px;">
+    <% } else if (proof.file_type.startsWith("video")) { %>
+      <video controls width="300" class="mb-2">
+        <source src="/<%= proof.file_path %>" type="<%= proof.file_type %>">
+      </video>
+    <% } else if (proof.file_type.startsWith("audio")) { %>
+      <audio controls class="mb-2">
+        <source src="/<%= proof.file_path %>" type="<%= proof.file_type %>">
+      </audio>
+    <% } %>
+
+  <% }) %>
+<% } %>
+
+          <form action="/admin/complaints/<%= c.id %>/status" method="POST">
+            <select name="status" class="form-select mb-2">
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+            <button class="btn btn-dark btn-sm">Update Status</button>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  <% }) %>
+
+<% } %>
+<a href="/admin/complaints/resolved">Resolved Complaints</a>
+
+
+</body>
+</html>

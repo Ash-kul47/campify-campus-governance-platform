@@ -1,0 +1,24 @@
+<h2>Resolved Tickets</h2>
+
+<% if (tickets.length === 0) { %>
+  <p>No resolved tickets.</p>
+<% } %>
+
+<% tickets.forEach(t => { %>
+  <div style="border:1px solid green; padding:10px; margin-bottom:10px;">
+    
+    <strong>[TICKET]</strong>
+    <strong><%= t.title %></strong>
+
+    <br>Resolved In: <%= t.resolution_hours || "N/A" %> hours
+    <br>Deadline was: <%= new Date(t.ticket_deadline).toLocaleString() %>
+
+    <br><br>
+    <strong>Student Details:</strong>
+    <br>Name: <%= t.student_name %>
+    <br>Class: <%= t.student_class %>
+    <br>Email: <%= t.contact_email %>
+    <br>Phone: <%= t.contact_number %>
+
+  </div>
+<% }) %>

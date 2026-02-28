@@ -1,0 +1,333 @@
+<div class="container mt-4">
+
+  <!-- Welcome Card -->
+  <div class="card shadow-sm mb-3 student-card"></div>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h3 class="mb-1">Welcome, <strong><%= user.public_id %></strong></h3>
+      <p class="text-muted mb-3">Manage your complaints and tickets below.</p>
+
+      <a href="/student/complaint/new" class="btn btn-primary me-2">
+        Raise Complaint
+      </a>
+      <a href="/student/ticket/new" class="btn btn-outline-primary">
+        Raise Ticket
+      </a>
+    </div>
+  </div>
+
+  <!-- ================= MY TICKETS ================= -->
+  <h4 class="mb-3">🎫 My Tickets</h4>
+
+  <% if (myTickets.length === 0) { %>
+    <div class="alert alert-secondary">No tickets submitted.</div>
+  <% } else { %>
+
+    <% myTickets.forEach(t => { %>
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+
+          <!-- Header Row -->
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="d-flex align-items-center mb-2">
+
+  <div style="
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:#3b82f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:12px;
+      font-weight:600;
+      margin-right:8px;
+  ">
+    <%= t.public_id.charAt(0).toUpperCase() %>
+  </div>
+
+  <small class="text-muted">
+    u/<%= t.public_id %>
+  </small>
+
+</div>
+
+<h5 class="mb-1"><%= t.title %></h5>
+              <small class="text-muted">
+                Deadline: <%= new Date(t.ticket_deadline).toLocaleString() %>
+              </small>
+            </div>
+
+            <div class="text-end">
+              <% if (t.status === "Resolved") { %>
+                <span class="badge bg-success">Resolved</span>
+              <% } else if (t.status === "In Progress") { %>
+                <span class="badge bg-warning text-dark">In Progress</span>
+              <% } else { %>
+                <span class="badge bg-secondary">Pending</span>
+              <% } %>
+
+              <br>
+
+              <button class="btn btn-sm btn-outline-dark mt-2"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#ticketDetails<%= t.id %>">
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <strong>Time Remaining:</strong>
+            <span class="countdown"
+                  data-deadline="<%= t.ticket_deadline %>">
+            </span>
+          </div>
+
+          <!-- Details -->
+          <div class="collapse mt-3" id="ticketDetails<%= t.id %>">
+            <hr>
+            <p><strong>Description:</strong> <%= t.description %></p>
+            <p><strong>Category:</strong> <%= t.category %></p>
+            <p><strong>Location:</strong> <%= t.location %></p>
+            <p><strong>Created At:</strong>
+              <%= new Date(t.created_at).toLocaleString() %>
+            </p>
+            <% if (t.proofs && t.proofs.length > 0) { %>
+  <div class="mt-3">
+    <strong>Attached Proof:</strong><br>
+
+    <% t.proofs.forEach(proof => { %>
+
+      <% if (proof.file_type.startsWith("image")) { %>
+        <img src="/<%= proof.file_path %>"
+             class="img-fluid rounded mt-2"
+             style="max-width: 250px;">
+      <% } else if (proof.file_type.startsWith("video")) { %>
+        <video controls width="250" class="mt-2">
+          <source src="/<%= proof.file_path %>"
+                  type="<%= proof.file_type %>">
+        </video>
+      <% } %>
+
+    <% }) %>
+  </div>
+<% } %>
+          </div>
+
+        </div>
+      </div>
+    <% }) %>
+
+  <% } %>
+
+  <hr class="my-4">
+
+
+  <!-- ================= MY COMPLAINTS ================= -->
+  <h4 class="mb-3">📢 My Complaints</h4>
+
+  <% if (complaints.length === 0) { %>
+    <div class="alert alert-secondary">No complaints yet.</div>
+  <% } else { %>
+
+    <% complaints.forEach(c => { %>
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="d-flex align-items-center mb-2">
+
+  <div style="
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:#3b82f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:12px;
+      font-weight:600;
+      margin-right:8px;
+  ">
+    <%= c.public_id.charAt(0).toUpperCase() %>
+  </div>
+
+  <small class="text-muted">
+    u/<%= c.public_id %>
+  </small>
+
+</div>
+
+<h5 class="mb-1"><%= c.title %></h5>
+              <small class="text-muted">
+                Upvotes: <%= c.upvotes %>
+              </small>
+            </div>
+
+            <div class="text-end">
+              <% if (c.status === "Resolved") { %>
+                <span class="badge bg-success">Resolved</span>
+              <% } else if (c.status === "In Progress") { %>
+                <span class="badge bg-warning text-dark">In Progress</span>
+              <% } else { %>
+                <span class="badge bg-secondary">Pending</span>
+              <% } %>
+
+              <br>
+
+              <button class="btn btn-sm btn-outline-dark mt-2"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#complaintDetails<%= c.id %>">
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <div class="collapse mt-3" id="complaintDetails<%= c.id %>">
+            <hr>
+            <p><strong>Description:</strong> <%= c.description %></p>
+            <p><strong>Category:</strong> <%= c.category %></p>
+            <p><strong>Location:</strong> <%= c.location %></p>
+            <p><strong>Created At:</strong>
+              <%= new Date(c.created_at).toLocaleString() %>
+            </p>
+            <% if (c.proofs && c.proofs.length > 0) { %>
+  <div class="mt-3">
+    <strong>Attached Proof:</strong><br>
+
+    <% c.proofs.forEach(proof => { %>
+
+      <% if (proof.file_type.startsWith("image")) { %>
+        <img src="/<%= proof.file_path %>"
+             class="img-fluid rounded mt-2"
+             style="max-width: 250px;">
+      <% } else if (proof.file_type.startsWith("video")) { %>
+        <video controls width="250" class="mt-2">
+          <source src="/<%= proof.file_path %>"
+                  type="<%= proof.file_type %>">
+        </video>
+      <% } %>
+
+    <% }) %>
+  </div>
+<% } %>
+          </div>
+
+        </div>
+      </div>
+    <% }) %>
+
+  <% } %>
+
+  <hr class="my-4">
+
+
+  <!-- ================= ALL COMPLAINTS ================= -->
+  <h4 class="mb-3">🌍 All Complaints</h4>
+
+  <% allComplaints.forEach(c => { %>
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="d-flex align-items-center mb-2">
+
+  <div style="
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      background:#3b82f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:11px;
+      font-weight:600;
+      margin-right:8px;
+  ">
+    <%= c.public_id.charAt(0).toUpperCase() %>
+  </div>
+
+  <small class="text-muted">
+    u/<%= c.public_id %>
+  </small>
+
+</div>
+
+<h6 class="mb-1"><%= c.title %></h6>
+            <small class="text-muted">
+              Status: <%= c.status %>
+            </small>
+          </div>
+
+          <div class="text-end">
+            <span class="badge bg-light text-dark">
+              Upvotes: <%= c.upvotes %>
+            </span>
+
+            <br>
+
+            <button class="btn btn-sm btn-outline-dark mt-2"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#allComplaintDetails<%= c.id %>">
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <div class="collapse mt-3" id="allComplaintDetails<%= c.id %>">
+          <hr>
+          <p><strong>Description:</strong> <%= c.description %></p>
+          <p><strong>Category:</strong> <%= c.category %></p>
+          <p><strong>Location:</strong> <%= c.location %></p>
+          <p><strong>Created At:</strong>
+            <%= new Date(c.created_at).toLocaleString() %>
+          </p>
+          <% if (c.proofs && c.proofs.length > 0) { %>
+  <div class="mt-3">
+    <strong>Attached Proof:</strong><br>
+
+    <% c.proofs.forEach(proof => { %>
+
+      <% if (proof.file_type.startsWith("image")) { %>
+        <img src="/<%= proof.file_path %>"
+             class="img-fluid rounded mt-2"
+             style="max-width: 250px;">
+      <% } else if (proof.file_type.startsWith("video")) { %>
+        <video controls width="250" class="mt-2">
+          <source src="/<%= proof.file_path %>"
+                  type="<%= proof.file_type %>">
+        </video>
+      <% } %>
+
+    <% }) %>
+  </div>
+<% } %>
+
+          <% if (c.user_id !== user.id) { %>
+            <form action="/student/complaints/<%= c.id %>/upvote"
+                  method="POST"
+                  class="mt-2">
+              <button type="submit"
+                      class="btn btn-sm btn-outline-success">
+                Upvote
+              </button>
+            </form>
+          <% } %>
+        </div>
+
+      </div>
+    </div>
+  <% }) %>
+
+  <div class="text-center mt-4">
+    <a href="/logout" class="btn btn-danger">Logout</a>
+  </div>
+
+</div>

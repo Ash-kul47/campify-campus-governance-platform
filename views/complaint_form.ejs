@@ -1,0 +1,91 @@
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <div class="card shadow-lg border-0" style="backdrop-filter: blur(10px);">
+        <div class="card-body p-4">
+
+          <h3 class="mb-3 fw-bold">📝 Raise a Complaint</h3>
+          <p class="text-muted mb-4">
+            Submit your concern. You can optionally attach proof.
+          </p>
+
+          <form action="/student/complaints" 
+                method="POST" 
+                enctype="multipart/form-data">
+
+            <!-- Title -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Title</label>
+              <input type="text"
+                     name="title"
+                     class="form-control"
+                     placeholder="Short summary of issue"
+                     required>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description</label>
+              <textarea name="description"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Describe the issue clearly..."
+                        required></textarea>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Category</label>
+              <select name="category" class="form-select" required>
+                <option value="">Select Category</option>
+                <option>Infrastructure</option>
+                <option>Academics</option>
+                <option>Hostel</option>
+                <option>Safety</option>
+                <option>IT / ERP</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Location</label>
+              <input type="text"
+                     name="location"
+                     class="form-control"
+                     placeholder="Building / Area / Block"
+                     required>
+            </div>
+
+            <!-- Proof Upload -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold">
+                Upload Proof (optional)
+              </label>
+              <input type="file"
+                     name="proof"
+                     class="form-control">
+              <small class="text-muted">
+                Accepted: Images, videos, audio
+              </small>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button type="submit"
+                      class="btn btn-primary btn-lg">
+                Submit Complaint
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

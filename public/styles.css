@@ -1,0 +1,283 @@
+/* ================= BASE ================= */
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+}
+
+/* ================= ADMIN THEME ================= */
+
+.admin-theme {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.admin-theme .content-wrapper {
+  background-color: #f1f5f9;
+}
+
+.admin-theme .card {
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* Professional look */
+.admin-theme h3,
+.admin-theme h4,
+.admin-theme h5 {
+  color: #1e293b;
+}
+
+/* ================= STUDENT THEME ================= */
+
+/* ================= STUDENT THEME ================= */
+
+.student-theme {
+  background: linear-gradient(135deg, #0f172a, #0b1e3a);
+  color: #e5e7eb;
+}
+
+.student-theme .content-wrapper {
+  background: transparent;
+}
+
+/* Navbar */
+.student-theme .navbar {
+  background-color: #111827 !important;
+  color: white;
+  border-bottom: 1px solid #1f2937;
+}
+
+/* Sidebar */
+.student-theme .sidebar {
+  background-color: #111827 !important;
+}
+
+/* Cards */
+.student-theme .card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+
+.student-theme .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(59,130,246,0.25);
+}
+
+/* Headings */
+.student-theme h3,
+.student-theme h4,
+.student-theme h5 {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Paragraph & small text */
+.student-theme p,
+.student-theme small,
+.student-theme span {
+  color: #cbd5e1;
+}
+
+/* Ticket titles */
+.student-theme .card h5 {
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+/* Buttons */
+.student-theme .btn-primary {
+  background-color: #2563eb;
+  border: none;
+}
+
+.student-theme .btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.student-theme .btn-outline-primary {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.student-theme .btn-outline-primary:hover {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* View details button */
+.student-theme .btn-outline-dark {
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+.student-theme .btn-outline-dark:hover {
+  background-color: #334155;
+  color: white;
+}
+
+/* Badges */
+.student-theme .badge.bg-success {
+  background-color: #16a34a !important;
+  box-shadow: 0 0 8px rgba(22,163,74,0.6);
+}
+
+.student-theme .badge.bg-warning {
+  background-color: #facc15 !important;
+  color: black !important;
+  box-shadow: 0 0 8px rgba(250,204,21,0.6);
+}
+
+.student-theme .badge.bg-secondary {
+  background-color: #475569 !important;
+}
+
+/* Inputs */
+.student-theme .form-control,
+.student-theme .form-select {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+}
+
+.student-theme .form-control:focus,
+.student-theme .form-select:focus {
+  background-color: #0f172a;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 0.2rem rgba(59,130,246,0.25);
+  color: white;
+}
+/* ================= FIX DARK THEME CONTRAST ================= */
+
+.student-theme .text-muted {
+  color: #94a3b8 !important;
+}
+
+.student-theme small {
+  color: #94a3b8 !important;
+}
+
+.student-theme strong {
+  color: #e2e8f0 !important;
+}
+
+.student-theme label {
+  color: #cbd5e1 !important;
+  font-weight: 500;
+}
+
+.student-theme .countdown {
+  color: #f1f5f9 !important;
+  font-weight: 600;
+}
+
+.student-theme .badge {
+  color: #ffffff !important;
+}
+
+/* Fix black upvote text */
+.student-theme .badge.bg-light {
+  background-color: #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Fix form headings */
+.student-theme h2,
+.student-theme h3,
+.student-theme h4 {
+  color: #ffffff !important;
+}
+
+/* Fix file upload text */
+.student-theme input[type="file"] {
+  color: #e2e8f0;
+}
+
+/* Fix placeholder color */
+.student-theme ::placeholder {
+  color: #64748b !important;
+  opacity: 1;
+}
+/* ================= SIDEBAR THEMES ================= */
+
+/* Admin Sidebar */
+.admin-sidebar {
+  background-color: #1e293b;
+  color: rgb(247, 239, 239);
+}
+
+.admin-sidebar .nav-link {
+  color: rgb(179, 169, 169);
+}
+
+.admin-sidebar .nav-link:hover {
+  background-color: #334155;
+  border-radius: 6px;
+}
+
+/* Student Sidebar */
+.student-sidebar {
+  background-color: #0b1220;
+  color: #e2e8f0;
+}
+
+.student-sidebar .nav-link {
+  color: #cbd5e1;
+}
+
+.student-sidebar .nav-link:hover {
+  background-color: #1e293b;
+  border-radius: 6px;
+  color: #93c5fd;
+}
+/* ===== STUDENT THEME - ALL COMPLAINTS CONTRAST FIX ===== */
+
+/* Complaint titles */
+.student-theme .card h6 {
+  color: #e2e8f0 !important;
+  font-weight: 600;
+}
+
+/* Status text */
+.student-theme .card small {
+  color: #94a3b8 !important;
+  font-size: 0.9rem;
+}
+
+/* Upvote badge */
+.student-theme .badge.bg-light {
+  background-color: #334155 !important;
+  color: #f1f5f9 !important;
+  border: 1px solid #475569;
+}
+
+/* View Details button */
+.student-theme .btn-outline-dark {
+  border-color: #475569 !important;
+  color: #cbd5e1 !important;
+}
+
+.student-theme .btn-outline-dark:hover {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  color: white !important;
+}
+
+/* Card base for better separation */
+.student-theme .card {
+  background: linear-gradient(145deg, #1e293b, #182235);
+}
+/* ===== SIDEBAR SIZE FIX ===== */
+
+.sidebar {
+  width: 250px;          /* fixed width */
+  min-width: 260px;      /* prevents shrinking */
+  min-height: 100vh;
+  flex-shrink: 0;        /* prevents flex compression */
+}

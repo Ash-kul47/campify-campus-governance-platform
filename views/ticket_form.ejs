@@ -1,0 +1,140 @@
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card shadow-lg border-0" style="backdrop-filter: blur(10px);">
+        <div class="card-body p-4">
+
+          <h3 class="fw-bold mb-2">🎫 Raise Formal Ticket</h3>
+          <p class="text-muted mb-4">
+            Use this for urgent or officially tracked issues.
+          </p>
+
+          <form action="/student/tickets"
+                method="POST"
+                enctype="multipart/form-data">
+
+            <!-- ================= ISSUE DETAILS ================= -->
+            <h5 class="fw-semibold mb-3">Issue Details</h5>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Title</label>
+              <input type="text"
+                     name="title"
+                     class="form-control"
+                     placeholder="Brief issue summary"
+                     required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description</label>
+              <textarea name="description"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Explain the issue clearly..."
+                        required></textarea>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Category</label>
+                <select name="category" class="form-select" required>
+                  <option value="">Select Category</option>
+                  <option>Infrastructure</option>
+                  <option>Academics</option>
+                  <option>Hostel</option>
+                  <option>Safety</option>
+                  <option>IT / ERP</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Location</label>
+                <input type="text"
+                       name="location"
+                       class="form-control"
+                       placeholder="Building / Block / Area"
+                       required>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">
+                Upload Proof (optional)
+              </label>
+              <input type="file"
+                     name="proof"
+                     class="form-control">
+              <small class="text-muted">
+                Images, videos or audio supported
+              </small>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- ================= PERSONAL DETAILS ================= -->
+            <h5 class="fw-semibold mb-3">Personal Details</h5>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Your Name</label>
+                <input type="text"
+                       name="student_name"
+                       class="form-control"
+                       placeholder="Full Name"
+                       required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">
+                  Class / Department
+                </label>
+                <input type="text"
+                       name="student_class"
+                       class="form-control"
+                       placeholder="e.g. SE Computer"
+                       required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email"
+                       name="contact_email"
+                       class="form-control"
+                       placeholder="example@college.edu"
+                       required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">
+                  Contact Number
+                </label>
+                <input type="text"
+                       name="contact_number"
+                       class="form-control"
+                       placeholder="10-digit mobile number"
+                       required>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid mt-3">
+              <button type="submit"
+                      class="btn btn-primary btn-lg">
+                Submit Ticket
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

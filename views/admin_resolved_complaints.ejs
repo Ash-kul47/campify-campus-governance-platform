@@ -1,0 +1,23 @@
+<h2>Active Complaints</h2>
+
+<% if (complaints.length === 0) { %>
+  <p>No active complaints.</p>
+<% } %>
+
+<% complaints.forEach(c => { %>
+  <div style="border:1px solid gray; padding:10px; margin-bottom:10px;">
+    <strong><%= c.title %></strong>
+    <br>Status: <%= c.status %>
+    <br>Upvotes: <%= c.upvotes %>
+    <br>Priority Score: <%= c.priority_score %>
+
+    <form action="/admin/complaints/<%= c.id %>/status" method="POST">
+      <select name="status">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+      </select>
+      <button type="submit">Update Status</button>
+    </form>
+  </div>
+<% }) %>
