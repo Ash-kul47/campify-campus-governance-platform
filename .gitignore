@@ -2,3 +2,4 @@ node_modules/
 .env
 routes/proofs/
 public/uploads/
+campify_video.mp4
