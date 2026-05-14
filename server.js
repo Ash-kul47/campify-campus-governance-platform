@@ -1,7 +1,7 @@
 // Load environment variables from .env file (DB credentials, secrets, etc.)
 
 require("dotenv").config();//reads the .env file to get db data
-console.log("SERVER ENV CHECK:", process.env.DB_USER);
+
 
 // Initialize database connection (pg Pool
 require("./db");
