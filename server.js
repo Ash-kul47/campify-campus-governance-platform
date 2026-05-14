@@ -78,8 +78,8 @@ function isStudent(req, res, next) {
 
 // -------------------- ROUTES --------------------
 
-//app.use("/admin", adminRoutes);
-//app.use("/student", studentRoutes);
+app.use("/admin", adminRoutes);
+app.use("/student", studentRoutes);
 
 
 // -------------------- DEBUG SESSION ROUTES --------------------
