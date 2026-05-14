@@ -1,18 +1,16 @@
-require("dotenv").config(); // FIRST line
-//reads the .env file to get db data
-const { Pool } = require("pg");//pg-library for postgres
-//pool-conncetion manager
+require("dotenv").config();
+
+const { Pool } = require("pg");
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
-pool.connect()//try to conncet now
+pool.connect()
   .then(() => console.log("PostgreSQL connected ✅"))
   .catch(err => console.error("PostgreSQL connection error ❌", err));
 
-module.exports = pool;//Allow other files to use this database connection.
+module.exports = pool;
