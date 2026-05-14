@@ -271,7 +271,16 @@
               Upvotes: <%= c.upvotes %>
             </span>
 
-            <br>
+            <% if (c.user_id !== user.id) { %>
+              <form action="/student/complaints/<%= c.id %>/upvote"
+                    method="POST"
+                    class="mt-2">
+                <button type="submit"
+                        class="btn btn-sm <%= c.has_upvoted ? 'btn-success' : 'btn-outline-success' %>">
+                  <%= c.has_upvoted ? 'Upvoted' : 'Upvote' %>
+                </button>
+              </form>
+            <% } %>
 
             <button class="btn btn-sm btn-outline-dark mt-2"
                     data-bs-toggle="collapse"
@@ -309,17 +318,6 @@
     <% }) %>
   </div>
 <% } %>
-
-          <% if (c.user_id !== user.id) { %>
-            <form action="/student/complaints/<%= c.id %>/upvote"
-                  method="POST"
-                  class="mt-2">
-              <button type="submit"
-                      class="btn btn-sm btn-outline-success">
-                Upvote
-              </button>
-            </form>
-          <% } %>
         </div>
 
       </div>
