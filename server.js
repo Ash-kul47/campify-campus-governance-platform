@@ -78,8 +78,8 @@ function isStudent(req, res, next) {
 
 // -------------------- ROUTES --------------------
 
-app.use("/admin", adminRoutes);
-app.use("/student", studentRoutes);
+//app.use("/admin", adminRoutes);
+//app.use("/student", studentRoutes);
 
 
 // -------------------- DEBUG SESSION ROUTES --------------------
@@ -238,7 +238,9 @@ app.get("/whoami", (req, res) => {
   res.json(req.session.user || "Not logged in");
 });
 
-
+app.get("/health", (req, res) => {
+  res.send("Campify Railway Working");
+});
 // -------------------- SERVER START --------------------
 
 const PORT = process.env.PORT || 3000;
