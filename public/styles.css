@@ -313,10 +313,9 @@ body {
   }
 
   /* Buttons */
-  .btn {
-    width: 100%;
+  .main-content .btn {
     margin-bottom: 8px;
-  }
+}
 
   /* Card headers */
   .d-flex.justify-content-between {

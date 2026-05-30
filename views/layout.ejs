@@ -135,23 +135,21 @@
   <div class="main-content flex-grow-1">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-light shadow-sm px-4">
+    <nav class="navbar navbar-light shadow-sm px-3">
 
-      <!-- Mobile Menu Button -->
-      <button
-        class="btn btn-outline-secondary d-md-none me-2"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#sidebarMenu">
-        ☰
-      </button>
+  <button
+    class="btn btn-sm btn-outline-secondary d-md-none me-2"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#sidebarMenu">
+    ☰
+  </button>
 
-      <span class="navbar-brand mb-0 h5 fw-semibold">
-        <%= typeof title !== "undefined" ? title : "Campify" %>
-      </span>
+  <span class="navbar-brand mb-0 h5 fw-semibold">
+    <%= typeof title !== "undefined" ? title : "Campify" %>
+  </span>
 
-    </nav>
-
+</nav>
     <!-- Page Content -->
     <div class="p-4 min-vh-100 content-wrapper">
       <%- body %>
