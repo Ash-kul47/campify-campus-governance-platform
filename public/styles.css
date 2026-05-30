@@ -281,3 +281,62 @@ body {
   min-height: 100vh;
   flex-shrink: 0;        /* prevents flex compression */
 }
+
+
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+  /* Stack sidebar above content */
+  body .d-flex {
+    flex-direction: column !important;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    min-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
+  .content-wrapper {
+    padding: 15px !important;
+  }
+
+  /* Cards */
+  .card {
+    margin-bottom: 15px;
+  }
+
+  /* Buttons */
+  .btn {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  /* Card headers */
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .text-end {
+    text-align: left !important;
+  }
+
+  /* Images */
+  img,
+  video {
+    max-width: 100% !important;
+    height: auto;
+  }
+
+  /* Long titles */
+  h3,h4,h5,h6 {
+    word-break: break-word;
+  }
+}
